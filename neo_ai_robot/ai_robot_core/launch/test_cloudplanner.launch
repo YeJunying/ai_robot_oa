@@ -1,0 +1,9 @@
+<launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${time}] [${logger}] [${node}]: ${message}" />
+  <arg name="cloud_planner_url" default="ws://139.196.197.176:30110" />
+
+  <node name="test_cloudplanner" pkg="ai_robot_core" type="test_cloudplanner" respawn="false" output="screen">
+    <param name="cloud_planner_url"  value="$(arg cloud_planner_url)" />
+  </node>
+</launch>
+<!-- vim: set ft=xml noet : -->

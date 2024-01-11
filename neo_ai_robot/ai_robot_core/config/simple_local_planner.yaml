@@ -1,0 +1,17 @@
+defl_from_neu_to_map: 19.0
+defl_from_nwu_to_map: -71.0
+is_mercator_aligned_to_map: true # 墨卡托坐标系是否改为与像素地图坐标系对齐
+
+robot_width: 0.15
+robot_safe_gap: 0.2
+
+max_vel_x: 0.5
+max_vel_y: 0.25
+max_vel_theta: 1.87
+
+xy_goal_tolerance_blue: 1.5
+xy_goal_tolerance: 0.5
+yaw_goal_tolerance: 0.05
+
+# imu_hdg_offset_to_map: 22.14159265 # PI/2 + 19 (NWU compass heading -> map)
+# imu_hdg_offset_to_map: 0

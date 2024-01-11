@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+# import math
+
+import rospy
+
+from oa_impl import RoboCtrlRos
+
+if __name__ == "__main__":
+    rospy.init_node('robot_ctrl_ros')
+    oa = RoboCtrlRos()
+# oa.set_pos(18.50, 14.0, math.atan2(14.0, 18.50))
+# oa.set_target_pos(24.0, 15.0)
+    while not rospy.is_shutdown():
+        oa.compute_velocity()
+        rospy.sleep(1)

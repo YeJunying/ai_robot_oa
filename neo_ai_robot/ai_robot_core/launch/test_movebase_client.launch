@@ -1,0 +1,5 @@
+<launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${time}] [${logger}] [${node}]: ${message}" />
+  <node name="movebase_client" pkg="ai_robot_core" type="movebase_client" respawn="false" output="screen" />
+</launch>
+<!-- vim: set ft=xml noet : -->

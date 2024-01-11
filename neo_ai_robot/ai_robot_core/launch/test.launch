@@ -1,0 +1,48 @@
+<launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${time}] [${logger}] [${node}]: ${message}" />
+
+  <arg name="urdf_file" default="$(find xacro)/xacro '$(find ai_robot_core)/urdf/pioneer3at.urdf'" />
+  <arg name="cloud_planner_url" default="ws://139.196.197.176:30110" />
+
+  <param name="robot_description" command="$(arg urdf_file)" />
+
+  <arg name="map_config" default="default.yaml"/>
+  <arg name="map_path" default="default.pgm"/>
+  <param name="/map_path" value="$(arg map_path)"/>
+  <node pkg="map_server" name="map_server" type="map_server" args="$(find ai_robot_core)/map/$(arg map_config)"/>
+
+  <!-- sensors -->
+  <include file="$(find ai_robot_sensors)/launch/start_all_kewei.launch">
+    <arg name="use_laser" value="true"/>
+  </include>
+
+  <!-- robot state publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- agv -->
+  <include file="$(find ranger_bringup)/launch/ranger_mini_v1.launch">
+    <arg name="odom_topic_name" value="/odom" />
+    <arg name="publish_odom_tf" value="true" />
+  </include>
+
+  <node name="brain_node" pkg="ai_robot_core" type="brain_node" respawn="false" output="screen">
+  </node>
+  <node name="movebase_node" pkg="ai_robot_core" type="movebase_node" respawn="false" output="screen" >
+    <param name="cloud_planner_url"  value="$(arg cloud_planner_url)" />
+    <param name="imu_has_mag" value="true" />
+    <rosparam command="load" ns="simple_local_planner" file="$(find ai_robot_core)/config/simple_local_planner.yaml"/>
+  </node>
+  <node name="odom2map_tf_pub" pkg="ai_robot_core" type="odom2map_tf_pub" respawn="false" output="screen" unless="$(arg sim)">
+  </node>
+
+  <node name="joystick" pkg="joy" type="joy_node" respawn="false" output="screen"/>
+
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ai_robot_core)/config/rviz/test.rviz"/>
+
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_footprint" args="0 0 0 0 0 0 1 base_link base_footprint" /> -->
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_imu" args="0 0 0 0 0 0 1 base_link sensors_imu_link" /> -->
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_laser" args="0.2 0.0 0.0 0.0 0.0 0.0 base_link laser"/> -->
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_base" args="0.0 0.0 0.0 0.0 0.0 0.0 base_link base_frame"/> -->
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_leftcam" args="0.2 0.1 0.0 0.0 0.0 0.0 base_frame left_camera_frame"/> -->
+</launch>
+<!-- vim: set ft=xml noet : -->

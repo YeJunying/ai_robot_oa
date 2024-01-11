@@ -1,0 +1,7 @@
+ds: 10 # cm/s 线速度
+local_range: 200 # cm 激光探测距离。线速度越大，该举例也应该越大。
+collision_dist: 35 # cm 机器人与障碍物保持的最小距离，取决于机器人车身物理尺寸
+dir_keep: 30 # degrees 如果转角小于30度，机器人保持原航向。该角度过小将导致机器人频繁转向。
+dir_adj: 0 #远离障碍的最大允许角度修改余量
+dist_mask_threshold: 20 # 小于该举例的障碍点就被滤除
+verbose: false # 调试信息输出开关
