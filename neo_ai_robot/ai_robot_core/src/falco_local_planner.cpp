@@ -164,6 +164,10 @@ namespace ai_robot {
             ROS_ERROR("%s",ex.what());
 //            ros::Duration(1.0).sleep();
         }
+        catch (tf2::ExtrapolationException &ex)
+        {
+            ROS_ERROR("%s",ex.what());
+        }
 //        registered_scan_pub_.publish(cloud_msg_3d_basescan);
     }
 

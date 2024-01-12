@@ -22,7 +22,7 @@
     <remap from="cmd_vel" to="$(arg cmd_vel_topic_name)" />
   </node>
   <!-- launch-prefix="gdb -ex run /-/-args" -->
-  <node name="movebase_node" pkg="ai_robot_core" type="movebase_node" respawn="false" output="screen">
+  <node name="movebase_node" pkg="ai_robot_core" type="movebase_node" respawn="false" output="screen" launch-prefix="gdb -ex run --args" >
 <!--  <node name="movebase_node" pkg="ai_robot_core" type="movebase_node" respawn="false" output="screen">-->
     <param name="cloud_planner_url" value="$(arg cloud_planner_url)" />
     <!-- <rosparam command="load" ns="simple_local_planner" file="$(find ai_robot_core)/config/simple_local_planner.yaml"/> -->
