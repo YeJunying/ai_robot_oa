@@ -219,6 +219,7 @@ namespace ai_robot {
         {
             ROS_ERROR("%s",ex.what());
         }
+        
         ROS_INFO("Everything is Ready.");
 
     //    registered_scan_pub_.publish(cloud_msg_3d_basescan);
