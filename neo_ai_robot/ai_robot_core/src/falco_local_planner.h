@@ -23,7 +23,9 @@
 #include <nav_msgs/Odometry.h>
 #include <sensor_msgs/Imu.h>
 #include <sensor_msgs/LaserScan.h>
+#include <sensor_msgs/PointCloud.h>
 #include <sensor_msgs/PointCloud2.h>
+#include <sensor_msgs/point_cloud_conversion.h>
 #include <std_msgs/UInt8.h>
 #include <tf2_ros/buffer.h>
 #include <tf2_ros/transform_listener.h>
@@ -55,6 +57,7 @@ namespace ai_robot {
         void velocityCB(const geometry_msgs::TwistStamped::ConstPtr& msg);
         void manctlStateCB(const std_msgs::UInt8ConstPtr& msg);
         void Laserscan2DCB(const sensor_msgs::LaserScan::ConstPtr &msg);
+        void Laserscan3DCB(const sensor_msgs::PointCloud::ConstPtr &msg);
 
     private:
         bool initialized_;

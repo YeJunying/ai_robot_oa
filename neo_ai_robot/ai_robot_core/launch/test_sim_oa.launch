@@ -50,5 +50,6 @@ ge
   </node>
 
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ai_robot_core)/config/rviz/test.rviz"/>
+  <!-- <node pkg="tf" type="static_transform_publisher" name="livox" args="0.0 0.0 0.0 0 0 0 /base_scan /head_hokuyo_sensor 1000"/> -->
 </launch>
 <!-- vim: set ft=xml noet : -->

@@ -865,6 +865,10 @@ void ObstacleAvoid::lidarCallback(const sensor_msgs::LaserScanConstPtr& msg) {
   time_intvl2_ = 1000 * double(tc_begin - tc_end) / cv::getTickFrequency();
 }
 
+void lidarCallback_3d(const sensor_msgs::PointCloudConstPtr& msg) {
+
+}
+
 void ObstacleAvoid::readParameters() {
   ros::NodeHandle nh("~");
   nh.getParam("use_lidar", lidar_used_);
@@ -903,6 +907,7 @@ void ObstacleAvoid::initPublishesAndSubscribes() {
   ros::NodeHandle nh;
   if (lidar_used_) 
     lidar_sub_ = nh.subscribe("/scan", 1, &ObstacleAvoid::lidarCallback, this);
+    
 }
 
 void ObstacleAvoid::safeZoneView() {

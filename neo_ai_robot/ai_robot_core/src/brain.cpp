@@ -23,7 +23,7 @@ Brain::Brain() :
   manctl_ = new ManControl();
   goal_sub_ = nh_.subscribe("move_base_simple/goal", 1, &Brain::moveBaseGoalCb, this);
   getMapInfo();
-  ROS_INFO("Everything is Ready.");
+  // ROS_INFO("Everything is Ready.");
 }
 
 Brain::~Brain() {

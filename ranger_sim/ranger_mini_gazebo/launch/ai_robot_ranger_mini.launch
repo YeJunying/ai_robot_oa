@@ -4,6 +4,7 @@
 
   <!-- <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model pioneer3at_robot"/> -->
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model pioneer3at_robot -x 1 -y -9.0 -z 0 -R 0 -P 0 -Y 3.141592653589793"/>
+  <!-- <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model pioneer3at -x -5 -y -9.0 -z 0 -R 0 -P 0 -Y 3.141592653589793"/> -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find ranger_mini_gazebo)/worlds/batclab.world" />
   </include>

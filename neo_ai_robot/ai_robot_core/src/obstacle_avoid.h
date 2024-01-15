@@ -18,6 +18,7 @@
 #include <nav_msgs/Odometry.h>
 #include <sensor_msgs/Imu.h>
 #include <sensor_msgs/LaserScan.h>
+#include <sensor_msgs/PointCloud.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <std_msgs/UInt8.h>
 #include <tf2_ros/buffer.h>
