@@ -57,7 +57,9 @@ namespace ai_robot {
         void velocityCB(const geometry_msgs::TwistStamped::ConstPtr& msg);
         void manctlStateCB(const std_msgs::UInt8ConstPtr& msg);
         void Laserscan2DCB(const sensor_msgs::LaserScan::ConstPtr &msg);
-        void Laserscan3DCB(const sensor_msgs::PointCloud::ConstPtr &msg);
+        void PointCloudCB(const sensor_msgs::PointCloud::ConstPtr &msg);
+        void PointCloud2CB(const sensor_msgs::PointCloud2::ConstPtr &msg);
+
 
     private:
         bool initialized_;

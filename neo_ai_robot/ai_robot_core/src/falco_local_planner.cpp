@@ -46,8 +46,8 @@ namespace ai_robot {
             ros::NodeHandle nh;
             oa_vel_sub_ = nh.subscribe("/pathFollower/cmd_vel", 1, &FalcoLocalPlanner::velocityCB, this);
             manctl_state_sub_ = nh.subscribe("/ai_robot/manctl_state", 1, &FalcoLocalPlanner::manctlStateCB, this);
-            // scan_sub_ = nh.subscribe("/scan", 5, &FalcoLocalPlanner::Laserscan2DCB, this);
-            scan_sub_ = nh.subscribe("/scan", 1000, &FalcoLocalPlanner::Laserscan3DCB, this);
+            scan_sub_ = nh.subscribe("/scan", 5, &FalcoLocalPlanner::Laserscan2DCB, this);
+            // scan_sub_ = nh.subscribe("/scan", 1000, &FalcoLocalPlanner::PointCloudCB, this);
 
             registered_scan_pub_ = nh.advertise<sensor_msgs::PointCloud2>("/registered_scan",1000);
             waypoint_pub_ = nh.advertise<geometry_msgs::PointStamped> ("/way_point", 5);
@@ -173,7 +173,7 @@ namespace ai_robot {
     }
 
 
-    void FalcoLocalPlanner::Laserscan3DCB(const sensor_msgs::PointCloud::ConstPtr &msg) {
+    void FalcoLocalPlanner::PointCloudCB(const sensor_msgs::PointCloud::ConstPtr &msg) {
         sensor_msgs::PointCloud2 cloud_msg_3d_tmp, cloud_msg_3d_basescan, cloud_msg_3d_map;
 
         sensor_msgs::convertPointCloudToPointCloud2(*msg, cloud_msg_3d_tmp);
@@ -224,6 +224,37 @@ namespace ai_robot {
 
     //    registered_scan_pub_.publish(cloud_msg_3d_basescan);
     }
+
+
+    void FalcoLocalPlanner::PointCloud2CB(const sensor_msgs::PointCloud2::ConstPtr &msg) {
+        sensor_msgs::PointCloud2 cloud_msg_3d_map;
+
+        geometry_msgs::TransformStamped tfs;
+    
+        try
+        {
+            tfs = tf_->lookupTransform("map", msg->header.frame_id, ros::Time(msg->header.stamp), ros::Duration(0.1));
+//            tfs = tf_->lookupTransform("map", msg->header.frame_id, ros::Time::now(), ros::Duration(0.1));
+            pcl_ros::transformPointCloud("map", tfs.transform, *msg, cloud_msg_3d_map);
+            // cloud_msg_3d_basescan.header.stamp = msg->header.stamp;
+            registered_scan_pub_.publish(cloud_msg_3d_map);
+//            registered_scan_pub_.publish(cloud_msg_3d_basescan);
+        }
+        catch (tf::LookupException &ex)
+        {
+            ROS_ERROR("%s",ex.what());
+//            ros::Duration(1.0).sleep();
+        }
+        catch (tf2::ExtrapolationException &ex)
+        {
+            ROS_ERROR("%s",ex.what());
+        }
+        
+        ROS_INFO("Everything is Ready.");
+
+    //    registered_scan_pub_.publish(cloud_msg_3d_basescan);
+    }
+
 
 
 

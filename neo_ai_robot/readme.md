@@ -1,0 +1,13 @@
+# 修改记录
+
+ai_robot_core/src/falco_local_planner.cpp falco_local_planner.h
+
+FalcoLocalPlanner类新增了两个私有成员函数PointCloudCB和PointCloud2CB
+
+其中：
+
+PointCloudCB用来处理仿真中livox雷达发出的sensor_msgs/PointCloud格式的点云数据
+
+PointCloud2CB用来处理实机livox雷达发出的sensor_msgs/PointCloud2格式的点云数据
+
+
